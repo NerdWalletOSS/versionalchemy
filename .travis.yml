@@ -1,0 +1,17 @@
+language: python
+python:
+  - 2.7.8
+  - 2.7
+env:
+  - SA_VERSION=1.0.0
+  - SA_VERSION=1.0.4
+  - SA_VERSION=1.0.14
+cache:
+  directories:
+  - $HOME/.cache/pip
+  - $HOME/.pyenv
+install:
+  - make clean install
+  - pip install SQLAlchemy==$SA_VERSION
+script:
+  - make tests
