@@ -1,3 +1,5 @@
+.. image:: https://travis-ci.org/NerdWallet/versionalchemy.svg?branch=master
+    :target: https://travis-ci.org/NerdWallet/versionalchemy
 VersionAlchemy
 ==============
 A library built on top of the SQLAlchemy ORM for versioning 
