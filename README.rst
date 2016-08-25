@@ -17,8 +17,7 @@ Build Status
 
 Useful Links
 ------------
-- `Developer Documentation <http:/TODO.com>`_
-  - TODO fill in with public doc link
+- `Developer Documentation <http://versionalchemy.readthedocs.io/en/latest/>`_
 - `Blog Post <https://www.nerdwallet.com/blog/engineering/versionalchemy-tracking-row-changes/>`_
   with more in depth design decisions
 
