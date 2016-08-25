@@ -8,3 +8,4 @@ nose
 psycopg2==2.6.1
 sh==1.11
 simplejson
+sphinx_rtd_theme
