@@ -1,5 +1,3 @@
-.. image:: https://travis-ci.org/NerdWallet/versionalchemy.svg?branch=master
-    :target: https://travis-ci.org/NerdWallet/versionalchemy
 VersionAlchemy
 ==============
 A library built on top of the SQLAlchemy ORM for versioning 
@@ -7,6 +5,15 @@ row changes to relational SQL tables.
 
 Authors: `Ryan Kirkman <https://www.github.com/ryankirkman/>`_ and
 `Akshay Nanavati <https://www.github.com/akshaynanavati/>`_
+
+Build Status
+------
+.. image:: https://travis-ci.org/NerdWallet/versionalchemy.svg?branch=master
+    :target: https://travis-ci.org/NerdWallet/versionalchemy
+    
+.. image:: https://readthedocs.org/projects/versionalchemy/badge/?version=latest
+    :target: http://versionalchemy.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 Useful Links
 ------------
