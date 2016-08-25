@@ -1,12 +1,12 @@
 from setuptools import setup
 
 
-VERSION = '0.1.0a3'
+VERSION = '0.1.0a4'
 INSTALL_REQUIRES = [
     'SQLAlchemy>=1.0.0',
     'simplejson',
 ]
-DOWNLOAD_URL = 'https://github.com/NerdWallet/versionalchemy/tarball/v{}'.format(VERSION),
+DOWNLOAD_URL = 'https://github.com/NerdWallet/versionalchemy/tarball/v{}'.format(VERSION)
 
 setup(
     name='versionalchemy',
