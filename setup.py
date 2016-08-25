@@ -1,11 +1,12 @@
 from setuptools import setup
 
 
-VERSION = '0.1.0a2'
+VERSION = '0.1.0a3'
 INSTALL_REQUIRES = [
     'SQLAlchemy>=1.0.0',
     'simplejson',
 ]
+DOWNLOAD_URL = 'https://github.com/NerdWallet/versionalchemy/tarball/v{}'.format(VERSION),
 
 setup(
     name='versionalchemy',
@@ -17,7 +18,7 @@ setup(
     author_email='akshay@nerdwallet.com',
     license='MIT License',
     description='Versioning library for relational data',
-    long_description='',
     url='https://github.com/NerdWallet/versionalchemy',
-    download_url='https://github.com/NerdWallet/versionalchemy/tarball/{}'.format(VERSION),
+    download_url=DOWNLOAD_URL,
+    long_description='',
 )
