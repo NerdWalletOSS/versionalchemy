@@ -1,17 +1,26 @@
 language: python
 python:
-  - 2.7.8
-  - 2.7
+- 2.7.8
+- 2.7
 env:
-  - SA_VERSION=1.0.0
-  - SA_VERSION=1.0.4
-  - SA_VERSION=1.0.14
+- SA_VERSION=1.0.0
+- SA_VERSION=1.0.4
+- SA_VERSION=1.0.14
 cache:
   directories:
-  - $HOME/.cache/pip
-  - $HOME/.pyenv
+  - "$HOME/.cache/pip"
+  - "$HOME/.pyenv"
 install:
-  - make clean install
-  - pip install SQLAlchemy==$SA_VERSION
+- make clean install
+- pip install SQLAlchemy==$SA_VERSION
 script:
-  - make lint tests
+- make lint tests
+deploy:
+  provider: pypi
+  user: akshayn
+  password:
+    secure: WpxFwuCDT0+iwjEi4MBXQkJZjHwO7H8p9tnepWCoIYWMUV/lK6i4VTWT9M43sTgXn6ICVM30DNfjxQ1zVfHnuhmWmhfIL2Zk9w+KL56aCNXvAH4eLUIp1daemi5NxVn+Yb6hB8eRs2po1KdFBBd1sTHhFDHECIqNqmQ/EtswALqLcp2pNko9ridCOPZDSD6w4qUkq9BHbZPHwqXRYnCdl7OFOchpCa0PvWPGkBc3QYYrgOw/2RNAamzg3bMLI0Qjz3r4SE3z1YlIf31UyeTDToYRdTKklMmj69vFsFg8IPWVB2wh6vEt+WaulLgDEios9vALwePJGeHMuX/zEfymaTN7uwUpZGkcnWNXYv6JNAoFzlM9E3MTqjnwex5kqaRCPqtQ9S5uywkF9UCeXWC8pw50D31RjQLPnsyjxqwweNaG1YYcHRJGkiRa8wJhpYJ8TSm2wROs44bPYC9FmD039MsSlIUg9OtpqzzO2X/uEg1dNbehMfyz8eYg5yuGtcvfhbg8VVTUvw0Eif2IjWDclW7T43FAXOOMPaFJX4LbI3iug6AwX1owOSBw09ffX0wJ4ny4jQdr1wfU/M45AqOSlRGR2+heyTp6Q/svalK9jjSpgDfY+HUzVR3oW/6vL3fN4T6VHZLRTm7K0tkx3IMKhFyDcqe3xYQOK5G3ZkknB3Y=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: NerdWallet/versionalchemy
