@@ -14,4 +14,4 @@ install:
   - make clean install
   - pip install SQLAlchemy==$SA_VERSION
 script:
-  - make tests
+  - make lint tests
