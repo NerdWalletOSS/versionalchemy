@@ -1,16 +1,17 @@
 from setuptools import setup
 
 
-install_requires = [
+VERSION = '0.1.0'
+INSTALL_REQUIRES = [
     'SQLAlchemy>=1.0.0',
     'simplejson',
 ]
 
 setup(
     name='versionalchemy',
-    version='0.1.0',
+    version=VERSION,
     packages=['versionalchemy', 'versionalchemy/api', 'versionalchemy/models'],
-    install_requires=install_requires,
+    install_requires=INSTALL_REQUIRES,
     include_package_data=True,
     author='Akshay Nanavati',
     author_email='akshay@nerdwallet.com',
@@ -18,4 +19,5 @@ setup(
     description='Versioning library for relational data',
     long_description='',
     url='https://github.com/NerdWallet/versionalchemy',
+    download_url='https://github.com/NerdWallet/versionalchemy/tarball/{}'.format(VERSION),
 )

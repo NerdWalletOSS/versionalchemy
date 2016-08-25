@@ -40,6 +40,11 @@ Contributing
 - Respond to any comments. The PR will be merged if the travis CI build passes and 
   the code changes are deemed sufficient by the admin
 
+Style
+~~~~~
+- Follow PEP8 with a line length of 100 characters
+- Prefer parenthesis to ``\`` for line breaks
+
 License
 -------
 `MIT License <https://github.com/NerdWallet/versionalchemy/blob/master/LICENSE>`_
