@@ -36,14 +36,23 @@ def generate_where_clause(cls, row, col, use_dirty=True):
 def generate_and_clause(cls, row, cols, use_dirty=True):
     """
     :param cls: the sqlalchemy ORM model
-    :param row: a sqlalchemy ORM model object (must be an instance of :param cls:)
+    :param row: a sqlalchemy ORM model object (must be an instance of :py:data:`cls`)
     :param cols: an iterable of strings corresponding to column names
     :param use_dirty: if ``True`` (default) will return the dirty value of the column
 
-    :return: a :py:func:`sqlalchem.and_` clause which checks for equality of all columns \
-    in cols to the value they contain in row. i.e. \
-    ``generate_and_clause(cls, ['foo', 'bar'], cols) -> \
-sqlalchemy.and_(cls.foo == row.foo, cls.bar == row.bar)``
+    :return: a :py:func:`sqlalchemy.and_` clause which checks for equality of all columns \
+    in cols to the value they contain in row.
+
+    For example,
+
+    .. code-block:: python
+
+        generate_and_clause(cls, ['foo', 'bar'], cols) =
+    would return
+
+    .. code-block:: python
+
+        sqlalchemy.and_(cls.foo == row.foo, cls.bar == row.bar)
     """
 
     return sa.and_(*(
