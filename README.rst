@@ -7,7 +7,7 @@ Authors: `Ryan Kirkman <https://www.github.com/ryankirkman/>`_ and
 `Akshay Nanavati <https://www.github.com/akshaynanavati/>`_
 
 Build Status
-------
+------------
 .. image:: https://travis-ci.org/NerdWallet/versionalchemy.svg?branch=master
     :target: https://travis-ci.org/NerdWallet/versionalchemy
     
@@ -23,6 +23,8 @@ Useful Links
 
 Getting Started
 ---------------
+
+.. code-block:: bash
 
   $ pip install versionalchemy
   
