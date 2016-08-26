@@ -1,7 +1,7 @@
 from setuptools import setup
 
 
-VERSION = '0.1.0a5'
+VERSION = '0.1.1'
 INSTALL_REQUIRES = [
     'SQLAlchemy>=1.0.0',
     'simplejson',
