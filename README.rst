@@ -24,6 +24,8 @@ Useful Links
 Getting Started
 ---------------
 
+.. code-block:: bash
+
   $ pip install versionalchemy
   
 TODO - any examples?
