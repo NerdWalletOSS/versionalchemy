@@ -23,7 +23,7 @@ Useful Links
 
 Latency
 -------
-We used `benchmark.py` <https://gist.github.com/akshaynanavati/f1e816596d100a33e4b4a9c48099a8b7>`_ to
+We used `benchmark.py <https://gist.github.com/akshaynanavati/f1e816596d100a33e4b4a9c48099a8b7>`_ to
 benchmark the performance of versionalchemy. It times the performance of the SQLAlchemy core, ORM
 without VersionAclehmy and ORM with VersionAlchemy for ``n`` inserts (where ``n`` was variable). Some
 results are below.
