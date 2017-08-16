@@ -18,5 +18,6 @@ def main():
         print 'Your test coverage is not 100%'
         sys.exit(-1)
 
+
 if __name__ == '__main__':
     main()
