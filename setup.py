@@ -6,7 +6,7 @@ INSTALL_REQUIRES = [
     'SQLAlchemy>=1.0.0',
     'simplejson',
 ]
-DOWNLOAD_URL = 'https://github.com/NerdWallet/versionalchemy/tarball/v{}'.format(VERSION)
+DOWNLOAD_URL = 'https://github.com/NerdWalletOSS/versionalchemy/tarball/v{}'.format(VERSION)
 
 setup(
     name='versionalchemy',
@@ -18,7 +18,7 @@ setup(
     author_email='akshay@nerdwallet.com',
     license='MIT License',
     description='Versioning library for relational data',
-    url='https://github.com/NerdWallet/versionalchemy',
+    url='https://github.com/NerdWalletOSS/versionalchemy',
     download_url=DOWNLOAD_URL,
     long_description='',
 )
