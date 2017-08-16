@@ -1,3 +1,4 @@
+from datetime import datetime
 from decimal import Decimal
 import json
 import unittest
@@ -18,6 +19,11 @@ class TestModel(Base):
     id = sa.Column(sa.Integer, primary_key=True)
     json_list = sa.Column(utils.JSONEncodedList)
     json_dict = sa.Column(utils.JSONEncodedDict)
+
+
+class TestClass(object):
+    def __init__(self, foo):
+        self.foo = foo
 
 
 class TestUtils(unittest.TestCase):
@@ -72,6 +78,27 @@ class TestUtils(unittest.TestCase):
         self.assertEqual(result[0].json_list, [1.0])
         self.assertEqual(result[0].json_dict, {'a': 2.1})
 
+    def test_json_encoded_datetime_value(self):
+        ts = datetime.now()
+        m = TestModel(json_list=[ts], json_dict={'a': ts})
+        self.session.add(m)
+        self.session.commit()
+        result = self.session.query(TestModel).all()
+        self.assertEqual(len(result), 1)
+        self.assertEqual(result[0].json_list, [ts.isoformat()])
+        self.assertEqual(result[0].json_dict, {'a': ts.isoformat()})
+
+    def test_json_encoded_object_value(self):
+        o = TestClass('bar')
+        m = TestModel(json_list=[o], json_dict={'a': o})
+        self.session.add(m)
+        try:
+            self.session.flush()
+        except StatementError as e:
+            self.assertTrue(type(e.orig), TypeError)
+            return
+        self.assertTrue(False, 'Test should have raised StatementError')
+
     def test_json_encoded_write_failure(self):
         m = TestModel(json_list={'a': 'b'})
         self.session.add(m)
@@ -83,7 +110,7 @@ class TestUtils(unittest.TestCase):
                 "(exceptions.ValueError) value of type <type 'dict'> is not <type 'list'>"
             )
             return
-        self.asesrtTrue(False, 'Test should have raised StatementError')
+        self.assertTrue(False, 'Test should have raised StatementError')
 
     def test_json_encode_read_failure(self):
         self.session.execute(
@@ -94,7 +121,7 @@ class TestUtils(unittest.TestCase):
         except ValueError as e:
             self.assertEqual(e.message, "value of type <type 'dict'> is not <type 'list'>")
             return
-        self.asesrtTrue(False, 'Test should have raised ValueError')
+        self.assertTrue(False, 'Test should have raised ValueError')
 
     def test_is_modified(self):
         row = TestModel(json_list=[1, 2, 3])

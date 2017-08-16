@@ -1,3 +1,4 @@
+import datetime
 import itertools
 import simplejson as json
 
@@ -154,6 +155,19 @@ def is_modified(row, ignore=None):
     ))
 
 
+class VAJSONEncoder(json.JSONEncoder):
+    """
+    Extends the default encoder to add support for serializing datetime objects.
+    Currently, this uses the `datetime.isoformat()` method; the resulting string
+    can be reloaded into a MySQL/Postgres TIMESTAMP column directly.
+    (This was verified on MySQL 5.6 and Postgres 9.6)
+    """
+    def default(self, obj):
+        if isinstance(obj, datetime.datetime):
+            return obj.isoformat()
+        return super(VAJSONEncoder, self).default(obj)
+
+
 class _JSONEncoded(TypeDecorator):
     """
     Does validation and serde on a JSON python type (list, dict, int, str) to
@@ -173,7 +187,7 @@ class _JSONEncoded(TypeDecorator):
         if self.json_type is not None and not isinstance(value, self.json_type):
             raise ValueError('value of type {} is not {}'.format(type(value), self.json_type))
 
-        return json.dumps(value, ensure_ascii=False, encoding='utf8')
+        return json.dumps(value, ensure_ascii=False, encoding='utf8', cls=VAJSONEncoder)
 
     def process_result_value(self, value, dialect):
         if value is None:
