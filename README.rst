@@ -21,24 +21,6 @@ Useful Links
 - `Blog Post <https://www.nerdwallet.com/blog/engineering/versionalchemy-tracking-row-changes/>`_
   with more in depth design decisions
 
-Latency
--------
-We used `benchmark.py <https://gist.github.com/akshaynanavati/f1e816596d100a33e4b4a9c48099a8b7>`_ to
-benchmark the performance of versionalchemy. It times the performance of the SQLAlchemy core, ORM
-without VersionAclehmy and ORM with VersionAlchemy for ``n`` inserts (where ``n`` was variable). Some
-results are below.
-
-+--------+-----------+----------+----------+
-| n      | Core Time | ORM Time | VA Time  |
-+========+===========+==========+==========+
-| 10000  | 9.81 s    | 16.04 s  | 36.13    |
-+--------+-----------+----------+----------+
-| 100000 | 98.78 s   | 158.87 s | 350.84 s |
-+--------+-----------+----------+----------+
-
-VersionAlchemy performs roughly 2 times as bad as the ORM, which makes sense as we are doing roughly one
-additional insert per orm insert into the archive table.
-
 Getting Started
 ---------------
 
@@ -81,6 +63,24 @@ Sample Usage
     va.init()  # Only call this once
     Example.register(ExampleArchive, engine)  # Call this once per engine, AFTER va.init
   
+Latency
+-------
+We used `benchmark.py <https://gist.github.com/akshaynanavati/f1e816596d100a33e4b4a9c48099a8b7>`_ to
+benchmark the performance of versionalchemy. It times the performance of the SQLAlchemy core, ORM
+without VersionAclehmy and ORM with VersionAlchemy for ``n`` inserts (where ``n`` was variable). Some
+results are below.
+
++--------+-----------+----------+----------+
+| n      | Core Time | ORM Time | VA Time  |
++========+===========+==========+==========+
+| 10000  | 9.81 s    | 16.04 s  | 36.13    |
++--------+-----------+----------+----------+
+| 100000 | 98.78 s   | 158.87 s | 350.84 s |
++--------+-----------+----------+----------+
+
+VersionAlchemy performs roughly 2 times as bad as the ORM, which makes sense as we are doing roughly one
+additional insert per orm insert into the archive table.
+
 Contributing
 ------------
 - Make sure you have `pip <https://pypi.python.org/pypi/pip>`_ 
