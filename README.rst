@@ -8,8 +8,8 @@ Authors: `Ryan Kirkman <https://www.github.com/ryankirkman/>`_ and
 
 Build Status
 ------------
-.. image:: https://travis-ci.org/NerdWallet/versionalchemy.svg?branch=master
-    :target: https://travis-ci.org/NerdWallet/versionalchemy
+.. image:: https://travis-ci.org/NerdWalletOSS/versionalchemy.svg?branch=master
+    :target: https://travis-ci.org/NerdWalletOSS/versionalchemy
     
 .. image:: https://readthedocs.org/projects/versionalchemy/badge/?version=latest
     :target: http://versionalchemy.readthedocs.io/en/latest/?badge=latest
