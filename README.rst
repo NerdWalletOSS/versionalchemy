@@ -100,4 +100,4 @@ Style
 
 License
 -------
-`MIT License <https://github.com/NerdWallet/versionalchemy/blob/master/LICENSE>`_
+`MIT License <https://github.com/NerdWalletOSS/versionalchemy/blob/master/LICENSE>`_
