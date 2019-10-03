@@ -1,10 +1,8 @@
-from tests.models import (
-    UserTable,
-)
-from tests.utils import (
-    SQLiteTestBase,
-)
+from __future__ import absolute_import
+
 import versionalchemy
+from tests.models import UserTable
+from tests.utils import SQLiteTestBase
 
 
 class TestInsert(SQLiteTestBase):
@@ -24,9 +22,9 @@ class TestInsert(SQLiteTestBase):
         p3 = UserTable(**self.p3)
         self.session.add_all([p1, p2, p3])
         self.session.flush()
-        self.assertEquals(p1.version(self.session), 0)
-        self.assertEquals(p2.version(self.session), 0)
-        self.assertEquals(p3.version(self.session), 0)
+        self.assertEqual(p1.version(self.session), 0)
+        self.assertEqual(p2.version(self.session), 0)
+        self.assertEqual(p3.version(self.session), 0)
 
         # Assert the columns match
         expected = [self.p1, self.p2, self.p3]

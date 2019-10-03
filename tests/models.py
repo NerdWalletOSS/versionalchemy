@@ -1,10 +1,6 @@
-from sqlalchemy import (
-    Boolean,
-    Column,
-    Integer,
-    String,
-    UniqueConstraint,
-)
+from __future__ import absolute_import
+
+from sqlalchemy import Boolean, Column, Integer, String, UniqueConstraint
 from sqlalchemy.ext.declarative import declarative_base
 
 from versionalchemy.models import VALogMixin, VAModelMixin

@@ -1,7 +1,9 @@
+from __future__ import absolute_import
+
 from datetime import datetime
 
-from sqlalchemy import Column, Integer, Boolean, DateTime, func
 import sqlalchemy as sa
+from sqlalchemy import Boolean, Column, DateTime, func, Integer
 
 from versionalchemy import utils
 from versionalchemy.exceptions import LogTableCreationError

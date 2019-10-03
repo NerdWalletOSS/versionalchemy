@@ -1,15 +1,20 @@
-from datetime import datetime
-from decimal import Decimal
+from __future__ import absolute_import
+
 import json
 import unittest
+from datetime import datetime
+from decimal import Decimal
 
+import six
 import sqlalchemy as sa
-from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import StatementError
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
 from versionalchemy import utils
 
+EXCEPTIONS_NAME = 'builtins' if six.PY3 else 'exceptions'
+TYPE_NAME = 'class' if six.PY3 else 'type'
 
 Base = declarative_base()
 
@@ -45,9 +50,9 @@ class TestUtils(unittest.TestCase):
         test_row = TestModel(json_list=val)
         dialect = self.engine.dialect
         attr = utils.get_column_attribute(test_row, 'json_list', dialect=dialect)
-        self.assertEquals(attr, json.dumps(val))
+        self.assertEqual(attr, json.dumps(val))
         attr = utils.get_column_attribute(test_row, 'json_list')
-        self.assertEquals(attr, val)
+        self.assertEqual(attr, val)
 
     def test_json_encoded_none_value(self):
         m = TestModel(json_list=None, json_dict=None)
@@ -60,7 +65,7 @@ class TestUtils(unittest.TestCase):
 
     def test_json_encoded_string_value(self):
         m1 = TestModel(json_list=json.dumps([1, 2, 3]))
-        m2 = TestModel(json_list=json.dumps([1, u'\u2603', 3], ensure_ascii=False).encode('utf-8'))
+        m2 = TestModel(json_list=six.ensure_str(json.dumps([1, u'\u2603', 3], ensure_ascii=False)))
         self.session.add(m1)
         self.session.add(m2)
         self.session.commit()
@@ -106,8 +111,10 @@ class TestUtils(unittest.TestCase):
             self.session.flush()
         except StatementError as e:
             self.assertEqual(
-                e.message,
-                "(exceptions.ValueError) value of type <type 'dict'> is not <type 'list'>"
+                e.args[0],
+                "({0}.ValueError) value of type <{1} 'dict'> is not <{1} 'list'>".format(
+                    EXCEPTIONS_NAME, TYPE_NAME
+                )
             )
             return
         self.assertTrue(False, 'Test should have raised StatementError')
@@ -119,7 +126,8 @@ class TestUtils(unittest.TestCase):
         try:
             self.session.query(TestModel).first()
         except ValueError as e:
-            self.assertEqual(e.message, "value of type <type 'dict'> is not <type 'list'>")
+            expected_error = "value of type <{0} 'dict'> is not <{0} 'list'>".format(TYPE_NAME)
+            self.assertEqual(str(e), expected_error)
             return
         self.assertTrue(False, 'Test should have raised ValueError')
 

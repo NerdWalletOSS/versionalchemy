@@ -1,9 +1,12 @@
+from __future__ import absolute_import
+
 import sqlalchemy as sa
 from sqlalchemy.orm import Session
 
 from versionalchemy import utils
 from versionalchemy.exceptions import LogTableCreationError
-from models import VAModelMixin
+
+from .models import VAModelMixin
 
 _initialized = False
 

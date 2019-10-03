@@ -1,27 +1,24 @@
+from __future__ import absolute_import, division
+
 import copy
 from datetime import datetime
-from itertools import chain, izip
+from itertools import chain
 
-import mock
+import six
 import sqlalchemy as sa
+from six.moves import range, zip
 from sqlalchemy import func
 
-from tests.models import (
-    MultiColumnUserTable,
-    UserTable,
-    ArchiveTable,
-)
-from tests.utils import (
-    SQLiteTestBase,
-)
-from versionalchemy.api import (
-    delete,
-    get,
-)
+from tests.models import ArchiveTable, MultiColumnUserTable, UserTable
+from tests.utils import SQLiteTestBase
+from versionalchemy.api import delete, get
 from versionalchemy.api.data import _get_conditions_list
-from versionalchemy.utils import (
-    get_dialect,
-)
+from versionalchemy.utils import get_dialect
+
+try:
+    from unittest import mock  # PY3
+except ImportError:
+    import mock
 
 
 class TestDeleteAPI(SQLiteTestBase):
@@ -79,7 +76,7 @@ class TestDeleteAPI(SQLiteTestBase):
                     sa.select([func.count(UserTable.ArchiveTable.va_id)])
                     .where(and_clause)
                 )
-                self.assertEquals(res.scalar(), 4)
+                self.assertEqual(res.scalar(), 4)
 
                 and_clause = sa.and_(*[
                     getattr(UserTable, col_name) == conds[0][col_name]
@@ -89,7 +86,7 @@ class TestDeleteAPI(SQLiteTestBase):
                     sa.select([func.count(UserTable.id)])
                     .where(and_clause)
                 )
-                self.assertEquals(res.scalar(), 1)
+                self.assertEqual(res.scalar(), 1)
 
 
 class TestMultiColDeleteAPI(SQLiteTestBase):
@@ -201,7 +198,7 @@ class TestGetAPI(SQLiteTestBase):
             t1=datetime.utcfromtimestamp(5),
             conds=conds,
         )
-        self.assertEquals(len(result), 0)
+        self.assertEqual(len(result), 0)
 
         result = get(
             UserTable,
@@ -235,7 +232,7 @@ class TestGetAPI(SQLiteTestBase):
             t2=datetime.utcfromtimestamp(15),
             conds=conds,
         )
-        self.assertEquals(len(result), 0)
+        self.assertEqual(len(result), 0)
 
     def test_get_single_product_with_change(self):
         '''
@@ -434,11 +431,11 @@ class TestGetAPI(SQLiteTestBase):
             self.session.commit()
             history.append(self._history(p1, t, self.p1['col2']))
             # make 500 changes
-            for i in xrange(500):
+            for i in range(500):
                 self.p1['col2'] += 1
                 self.p1['col3'] = int(i < 250)
-                self.p1['col1'] = 'foobar' + '1' * ((i + 1) / 10)
-                [setattr(p1, k, v) for k, v in self.p1.iteritems()]
+                self.p1['col1'] = 'foobar' + '1' * ((i + 1) // 10)
+                [setattr(p1, k, v) for k, v in six.iteritems(self.p1)]
                 self.session.add(p1)
                 self.session.commit()
                 history.append(self._history(p1, t, self.p1['col2']))
@@ -490,8 +487,8 @@ class TestGetAPI(SQLiteTestBase):
             self._assert_result(result, history[0:80:10], fields=['col1'])
 
     def _assert_result(self, result, expected, fields=None):
-        self.assertEquals(len(result), len(expected))
-        for res, exp in izip(result, expected):
+        self.assertEqual(len(result), len(expected))
+        for res, exp in zip(result, expected):
             res = copy.deepcopy(res)
             exp = copy.deepcopy(exp)
             self.assertEqual(res['va_id'], exp['va_data']['va_id'])
@@ -502,10 +499,10 @@ class TestGetAPI(SQLiteTestBase):
             del exp['va_data']['id']
             del exp['va_data']['va_id']
             if fields is not None:
-                for k in exp['va_data'].keys():
+                for k in list(exp['va_data']):
                     if k not in fields:
                         del exp['va_data'][k]
-            self.assertEquals(res, exp)
+            self.assertEqual(res, exp)
 
     def _history(self, row, ts, version):
         self.assertEqual(row.version(self.session), version)

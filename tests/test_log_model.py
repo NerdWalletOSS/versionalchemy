@@ -1,20 +1,13 @@
+from __future__ import absolute_import
+
 from datetime import datetime
 
-from sqlalchemy import (
-    Column,
-    Integer,
-    String,
-)
+from sqlalchemy import Column, Integer, String
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.declarative import declarative_base
 
-from tests.models import (
-    ArchiveTable,
-    UserTable,
-)
-from tests.utils import (
-    SQLiteTestBase,
-)
+from tests.models import ArchiveTable, UserTable
+from tests.utils import SQLiteTestBase
 from versionalchemy.exceptions import LogTableCreationError
 from versionalchemy.models import VALogMixin
 

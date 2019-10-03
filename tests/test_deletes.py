@@ -1,11 +1,9 @@
+from __future__ import absolute_import
+
 import sqlalchemy as sa
 
-from tests.models import (
-    UserTable,
-)
-from tests.utils import (
-    SQLiteTestBase,
-)
+from tests.models import UserTable
+from tests.utils import SQLiteTestBase
 
 
 class TestDelete(SQLiteTestBase):
@@ -15,7 +13,7 @@ class TestDelete(SQLiteTestBase):
 
         self.session.delete(p)
         self.session.flush()
-        self.assertEquals(len(self.session.execute(
+        self.assertEqual(len(self.session.execute(
             sa.select([UserTable]).
             where(UserTable.product_id == self.p1['product_id'])
         ).fetchall()), 0)
@@ -52,7 +50,7 @@ class TestDelete(SQLiteTestBase):
 
         self.session.delete(p)
         self.session.flush()
-        self.assertEquals(len(self.session.execute(
+        self.assertEqual(len(self.session.execute(
             sa.select([UserTable]).
             where(UserTable.product_id == self.p1['product_id'])
         ).fetchall()), 0)

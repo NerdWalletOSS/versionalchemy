@@ -1,9 +1,12 @@
+from __future__ import absolute_import
+
 import unittest
 
 import sqlalchemy as sa
 from sqlalchemy import func
 from sqlalchemy.orm import sessionmaker
 
+import versionalchemy as va
 from tests.models import (
     ArchiveTable,
     Base,
@@ -11,7 +14,6 @@ from tests.models import (
     MultiColumnUserTable,
     UserTable,
 )
-import versionalchemy as va
 from versionalchemy import utils
 
 
@@ -19,7 +21,7 @@ class VaTestHelpers(object):
     def _add_and_test_version(self, row, version):
         self.session.add(row)
         self.session.commit()
-        self.assertEquals(row.version(self.session), version)
+        self.assertEqual(row.version(self.session), version)
 
     def _result_to_dict(self, res):
         return utils.result_to_dict(res)
@@ -47,17 +49,17 @@ class VaTestHelpers(object):
             where(and_clause)
         )
         all_ = self._result_to_dict(res)
-        self.assertEquals(len(all_), 1)
+        self.assertEqual(len(all_), 1)
         row = all_[0]
         data = row['va_data']
-        self.assertEquals(row['va_deleted'], deleted)
+        self.assertEqual(row['va_deleted'], deleted)
         if user is not None:
-            self.assertEquals(row['user_id'], user)
+            self.assertEqual(row['user_id'], user)
         for k in expected:
             self.assertIn(k, data)
-            self.assertEquals(data[k], expected[k])
+            self.assertEqual(data[k], expected[k])
         if log_id is not None:
-            self.assertEquals(log_id, row['va_id'])
+            self.assertEqual(log_id, row['va_id'])
 
     def _verify_row(self, expected_dict, version, session=None):
         UserTable_ = getattr(self, 'UserTable', UserTable)
@@ -74,7 +76,7 @@ class VaTestHelpers(object):
             where(and_clause)
         )
         all_ = self._result_to_dict(res)
-        self.assertEquals(len(all_), 1)
+        self.assertEqual(len(all_), 1)
         row_dict = all_[0]
 
         # Assert the columns match
@@ -88,7 +90,7 @@ class VaTestHelpers(object):
         UserTable_ = getattr(self, 'UserTable', UserTable)
         ArchiveTable_ = UserTable_.ArchiveTable
         version_col_names = UserTable_.va_version_columns
-        self.assertEquals(len(key), len(version_col_names))
+        self.assertEqual(len(key), len(version_col_names))
 
         and_clause = sa.and_(*[
             getattr(ArchiveTable_, col_name) == key[col_name]
@@ -98,7 +100,7 @@ class VaTestHelpers(object):
             sa.select([func.count(ArchiveTable_.va_id)])
             .where(and_clause)
         )
-        self.assertEquals(res.scalar(), 0)
+        self.assertEqual(res.scalar(), 0)
 
         and_clause = sa.and_(*[
             getattr(UserTable_, col_name) == key[col_name]
@@ -108,7 +110,7 @@ class VaTestHelpers(object):
             sa.select([func.count(UserTable_.id)])
             .where(and_clause)
         )
-        self.assertEquals(res.scalar(), 0)
+        self.assertEqual(res.scalar(), 0)
 
 
 class SQLiteTestBase(unittest.TestCase, VaTestHelpers):

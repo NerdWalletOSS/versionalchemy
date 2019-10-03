@@ -1,17 +1,10 @@
-from sqlalchemy import (
-    Column,
-    Integer,
-    UniqueConstraint,
-)
+from __future__ import absolute_import
+
+from sqlalchemy import Column, Integer, UniqueConstraint
 from sqlalchemy.ext.declarative import declarative_base
 
-from tests.models import (
-    ArchiveTable,
-    UserTable,
-)
-from tests.utils import (
-    SQLiteTestBase,
-)
+from tests.models import ArchiveTable, UserTable
+from tests.utils import SQLiteTestBase
 from versionalchemy import VAModelMixin
 from versionalchemy.exceptions import LogTableCreationError
 from versionalchemy.models import VALogMixin

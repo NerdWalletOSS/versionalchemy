@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 import re
 import sys
 
@@ -15,7 +17,7 @@ def main():
         elif tests_failed_match:
             sys.exit(-1)
     if failed:
-        print 'Your test coverage is not 100%'
+        print('Your test coverage is not 100%')
         sys.exit(-1)
 
 

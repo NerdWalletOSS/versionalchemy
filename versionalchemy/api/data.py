@@ -1,3 +1,6 @@
+from __future__ import absolute_import
+
+import six
 import sqlalchemy as sa
 
 from versionalchemy import utils
@@ -187,7 +190,7 @@ def _get_conditions_list(va_table, conds, archive=True):
         conditions = []
         t = va_table.ArchiveTable if archive else va_table
 
-        for col_name, value in cond.iteritems():
+        for col_name, value in six.iteritems(cond):
             if col_name not in va_table.va_version_columns:
                 raise ValueError('{} is not one of the unique columns <{}>'.format(
                     col_name, ','.join(va_table.va_version_columns)

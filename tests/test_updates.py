@@ -1,19 +1,14 @@
+from __future__ import absolute_import
+
 import os
+import unittest
 
 import sqlalchemy as sa
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import sessionmaker
-import unittest
 
-from tests.models import (
-    ArchiveTable,
-    Base,
-    UserTable,
-)
-from tests.utils import (
-    SQLiteTestBase,
-    VaTestHelpers,
-)
+from tests.models import ArchiveTable, Base, UserTable
+from tests.utils import SQLiteTestBase, VaTestHelpers
 
 
 class TestUpdate(SQLiteTestBase):

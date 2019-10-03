@@ -1,9 +1,9 @@
+from __future__ import absolute_import
+
 import sqlalchemy as sa
 from sqlalchemy.exc import IntegrityError
 
-from tests.models import (
-    MultiColumnUserTable,
-)
+from tests.models import MultiColumnUserTable
 from tests.utils import SQLiteTestBase
 
 
@@ -156,7 +156,7 @@ class TestMultiColumnVersioning(SQLiteTestBase):
 
         self.session.delete(row)
         self.session.flush()
-        self.assertEquals(len(self.session.execute(
+        self.assertEqual(len(self.session.execute(
             sa.select([MultiColumnUserTable]).
             where(sa.and_(
                 MultiColumnUserTable.product_id_1 == r['product_id_1'],

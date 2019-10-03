@@ -1,10 +1,13 @@
 language: python
 python:
 - 2.7
+- 3.6
+- 3.7
 env:
 - SA_VERSION=1.0.19
-- SA_VERSION=1.1.13
-- SA_VERSION=1.2.0b2
+- SA_VERSION=1.1.18
+- SA_VERSION=1.2.19
+- SA_VERSION=1.3.8
 cache:
   directories:
   - "$HOME/.cache/pip"
@@ -16,10 +19,12 @@ script:
 - make lint tests
 deploy:
   provider: pypi
-  user: akshayn
+  user: luislew
   password:
-    secure: kswfuu9EL2O1ZhdPQS3fQ0vvy4YKpIXbeNH6n7dlssS0hRe54pjlIR95lReRGzHtS0Vhx2/NJjlsPAI0MgwKAcUHsYfxS7tPut2haZkjKlMae0u2QD6wv7eW9nY9xEHUJ91dR+5aVxD+OzkhEvBfMCYPoMZ9XMYCpGxwYekRk6U6UVWID2KQGzv3Pdh9a9LPgvYdWzuHUdUwG/JUIXwrfThqbnNV4Oc9sM3ISAJNbwWb/ltD7zpHyBGSuSgayTqNcQCEKG2gZ/f86omF/M08lpBs3rVJEYlGkvGBcgcpbUVood4hA/DMpdlw0RSpirXMgJkEptpt29LWk0sJ6uhFwmN3n1NNv1Qeec2IHU9BTg+lmT9zHJHer2GoOk7TbPbLSbgKPjQB0E9XZ9YplkCS/0ZWl2GYPQ0CQycs51sn7/xapfbP/7iIEVCEddmvMY6Kd43dLP7YEq8D22nDB1c73LQfLumGb5/6/X6BHY+hKpZF5usUVw0SvKAk7YC00Cv8EtAKLnFy+SIQy4EDEHvtx6wf4TfSz9Kvv40Avr1VAInqPLF3KqQvf/oqaHmESqxWQCptVGOq8cPD1+q30raVsmUcCdhkuIebLMTNo9fVk3Lm7neuC5cFHwL5xE3PV3blgQk4Rv+CAQu7WJbID9NLqYTQa4Ue/Qqdey7flSgGhv8=
+    secure: Cy1MROrVynCIx99+QgMpNMv2ZtFL3BpRwQQxdtes1dKgQMetaE3PEOebGj7mvA0lInPmQGmBA0vX205wZnc+lg4+69JIyWRXbx7bKnIiypG6mzdvGJjlzuJkhtVNvd/ntozXBP3pjV9A1bDHtamwMvDCEgtA9IDTRXwqGJ6IN1SpeUP5OSQzahog2oa7e3NOS8h93vYBhj1lWBAOb2lTlcjf1H6SNDwGMQ2cRSoMRJBlKXV/2YW9GEfSeU7sw8ZUtcKXYQ4MjrU3KnKY+FBymOK+1jf4NYJvzm0GFzRr3lncICBu96WvLeGd9lyDq7kHLSm0heANpgBtZx5SY/HKLCTBLX/xpuADeySl3E8gpiJE50ZaNPCVX4eoNdXFdlpEuC2BfOnwnb9qELK0a8rpN+5EHTNDx0Q6qDGs/41PBCVMaxsYZF4wz7aYNEXqxdRNN/be4pHtZv6F8oyRkwxUot/DAfqIFpUAcGTQlHGrEUBos7344AZadmf2kjzTIhGRwD2k+MfGWlZsU6VuxetYiCjmSjS91EfFd1+TV+y9sFQzG/poEVgtT/CV5aq6pm/NDshLGUL2Ugy91qNeCYOBf85WDE92aWl5XZgVfxCpNz0JWSrzns3a1Ji/FC1N4I/c7DtbP+B7bXNuJytZoe0or9HIfBSzTEvws1DXzr1y0Ac=
   on:
+    python: 3.7
+    condition: $SA_VERSION=1.3.8
     tags: true
     distributions: sdist bdist_wheel
     repo: NerdWalletOSS/versionalchemy
